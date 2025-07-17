@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--CDN de Bootstrap 5-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <!--CDN JS Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <!--CDN FontAwesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<title>Videojuegos | Registrarse</title>
+
+<body class="d-flex flex-column min-vh-100">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4 border rounded shadow bg-light p-5">
+                <h1 class="text-center">Editar Usuario </h1>
+                <form action="/actualizar_usuario" method="POST">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{ u[1] }}" required>
+                    </div class="mb-3">
+
+                    <div class="mb-3">
+                        <label for="apellido" class="form-label">Apellido:</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" value="{{ u[2] }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label">Usuario:</label>
+                        <input type="text" class="form-control" id="usuario" name="usuario" value="{{ u[4] }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="contrasena" class="form-label">Contraseña:</label>
+                        <input type="password" class="form-control" id="contrasena" name="contrasena" value="{{ u[5] }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="color" class="form-label">Color Favorito:</label>
+                        <div class="input-group">
+                            <input type="color" class="form-control form-control-color" id="color" name="color"
+                                title="Elige tu color favorito" value="{{ u[3] }}" required>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="Rol">Rol:</label>
+                        <select class="form-select" name="rol" id="rol" disabled>
+                            <option value="">Seleccione un rol</option>
+                            <option value="admin">Admin</option>
+                            <option value="cliente">Cliente</option>
+                        </select>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary px-5 mb-3">Actualizar</button>
+                    </div>
+                                
+
+                </form>
+            </div>
+        </div>
+    </div>
+    {% include 'componentes/footer.html' %}
+</body>
+
+</html>

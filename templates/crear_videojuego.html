@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videojuego | Crear Videojuego</title>
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        .card {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 12px;
+        }
+        h2 {
+            font-weight: bold;
+            color: #343a40;
+        }
+    </style>
+</head>
+<body>
+    {% include 'componentes/cabeza.html' %}
+
+    {% if session.get('usuario') and session.get('rol') == 'admin' %}
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card p-4">
+                    <h2 class="text-center mb-4">Crear Nuevo Videojuego</h2>
+                    <form action="/crear_videojuego" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre del Videojuego</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="categoria" class="form-label">Categoría</label>
+                            <select class="form-select" id="categoria" name="categoria" required>
+                                <option value="" disabled selected>Seleccione una categoría</option>
+                                <option value="Acción">Acción</option>
+                                <option value="Shooter">Shooter</option>
+                                <option value="Mundo Abierto">Mundo Abierto</option>
+                                <option value="Aventura">Aventura</option>
+                                <option value="Deportes">Deportes</option>
+                                <option value="Estrategia">Estrategia</option>
+                                <option value="RPG">RPG</option>
+                                <option value="Simulación">Simulación</option>
+                                <option value="Puzzle">Puzzle</option>
+                                <option value="Otros">Otros</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="precio" class="form-label">Precio ($)</label>
+                            <input type="number" class="form-control" id="precio" name="precio" min="0" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="plataforma" class="form-label">Plataforma</label>
+                            <select class="form-select" id="plataforma" name="plataforma" required>
+                                <option value="" disabled selected>Seleccione una plataforma</option>
+                                <option value="PC">PC</option>
+                                <option value="PlayStation">PS5</option>
+                                <option value="PS4">PS4</option>
+                                <option value="Xbox">Xbox</option>
+                                <option value="Xbox">Xbox Series X</option>
+                                <option value="Nintendo Switch">Nintendo Switch</option>
+                                <option value="Móvil">Móvil</option>
+                                <option value="Otros">Otros</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="otras_plataformas" class="form-label">Otras Plataformas</label>
+                            <input type="text" class="form-control" id="otras_plataformas" name="otras_plataformas">
+                        </div>
+                        <div class="mb-3">
+                            <label for="desarrollador" class="form-label">Desarrollador</label>
+                            <input type="text" class="form-control" id="desarrollador" name="desarrollador" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha_lanzamiento" class="form-label">Fecha de Lanzamiento</label>
+                            <input type="date" class="form-control" id="fecha_lanzamiento" name="fecha_lanzamiento" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="imagen" class="form-label">Imagen del Videojuego</label>
+                            <input type="file" class="form-control" id="imagen" name="imagen" accept=".jpg,.jpeg,.png,.gif" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="sinopsis" class="form-label">Sinopsis</label>
+                            <textarea class="form-control" id="sinopsis" name="sinopsis" rows="5" placeholder="Describe brevemente el argumento, jugabilidad o ambientación..." required></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Crear Videojuego</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="container mt-5">
+        <div class="alert alert-danger text-center" role="alert">
+            Acceso denegado. Solo los administradores pueden crear videojuegos.
+        </div>
+    </div>
+    {% endif %}
+
+    {% include 'componentes/footer.html' %}
+</body>
+</html>

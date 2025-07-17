@@ -1,0 +1,106 @@
+<!--Cabecera para todos las plantillas-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videojuegos - Platform</title>
+    <!--CDN de Bootstrap 5-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <!--CDN JS Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <!--CDN FontAwesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-light bg-light mb-3 sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="{{url_for('videojuegos')}}">
+            <img src="{{url_for('static',filename='imagenes/retrosix.png')}}" style="width: 80px;">
+        </a>
+        <button class=" navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/videojuegos">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Empresa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Eventos</a>
+                    </li>
+                </ul>
+                
+               
+                {% if session.get('usuario') %}
+                    <!-- Dropdown: usuario como botón -->
+                    <div class="dropdown me-3 user">
+                    <a class="navbar-text dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user"></i> {{ session.get('usuario') }}
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                        <li>
+                        <span class="dropdown-item disabled">
+                            <i class="fa-solid fa-user-shield"></i> {{ session.get('rol') }}
+                        </span>
+                        </li>
+                        <li>
+                        <span class="dropdown-item disabled">
+                            <i class="fa-solid fa-palette"></i> {{ session.get('color') }}
+                        </span>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                        <a class="dropdown-item" href="/editar_perfil"><i class="fa-solid fa-user-gear"></i> Editar Usuario</a>
+                        </li>
+                        {% if session.get('rol') == 'admin' %}
+                        <li>
+                        <a class="dropdown-item" href="/videojuegos/crear"><i class="fa-solid fa-plus"></i> Crear Videojuego</a>
+                        </li>
+                        {% endif %}
+                        
+                    </ul>
+                    </div>
+
+                    <a class="btn btn-outline-danger mt-3 mt-sm-0" href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+                {% else %}
+                    <a class="btn btn-outline-info" type="submit" href="/login"><i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión</a>
+                    <a class="btn btn-outline-success ms-2" type="submit" href="/registrarse"><i class="fa-solid fa-user-plus"></i> Registrarse</a>
+                {% endif %}
+                
+
+            </div>
+    </div>
+</nav>
+
+</body>
+<style>
+    .navbar-text {
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .navbar-text {
+        border-radius: 10px;
+        border-bottom: 5px solid {{ session.get('color') }};
+    }
+    .navbar-text i {
+        color: {{ session.get('color') }};
+    }
+
+    .navbar-text:hover {
+        transform: translateY(-2px);
+    }
+
+    .dropdown-item i {
+        color: {{ session.get('color') }};
+    }
+</style>
+

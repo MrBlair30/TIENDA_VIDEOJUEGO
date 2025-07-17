@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<title>Videojuego | Actualizar Videojuego</title>
+
+<body>
+    {% include 'componentes/cabeza.html' %}
+
+    {% if session.get('usuario') and session.get('rol') == 'admin' %}
+
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card p-4">
+                    <h2 class="text-center mb-4">Actualizar Videojuego</h2>
+                    <form action="/guardar_actualizacion_videojuego/{{ v[0] }}" method="POST"
+                        enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre del Videojuego</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre"
+                                value="{{ v[1] }}" required>
+                        </div>
+                       <div class="mb-3">
+                            <label for="categoria" class="form-label">Categoría</label>
+                            <select class="form-select" id="categoria" name="categoria" required>
+                                <option value="" disabled {% if not v[2] %}selected{% endif %}>Seleccione una categoría</option>
+                                <option value="Acción" {% if v[2] == 'Acción' %}selected{% endif %}>Acción</option>
+                                <option value="Shooter" {% if v[2] == 'Shooter' %}selected{% endif %}>Shooter</option>
+                                <option value="Mundo Abierto" {% if v[2] == 'Mundo Abierto' %}selected{% endif %}>Mundo Abierto</option>
+                                <option value="Aventura" {% if v[2] == 'Aventura' %}selected{% endif %}>Aventura</option>
+                                <option value="Deportes" {% if v[2] == 'Deportes' %}selected{% endif %}>Deportes</option>
+                                <option value="Estrategia" {% if v[2] == 'Estrategia' %}selected{% endif %}>Estrategia</option>
+                                <option value="RPG" {% if v[2] == 'RPG' %}selected{% endif %}>RPG</option>
+                                <option value="Simulación" {% if v[2] == 'Simulación' %}selected{% endif %}>Simulación</option>
+                                <option value="Puzzle" {% if v[2] == 'Puzzle' %}selected{% endif %}>Puzzle</option>
+                                <option value="Otros" {% if v[2] == 'Otros' %}selected{% endif %}>Otros</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="precio" class="form-label">Precio ($)</label>
+                            <input type="number" class="form-control" id="precio" name="precio" min="0" step="0.01"
+                                value="{{ v[3] }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="plataforma" class="form-label">Plataforma</label>
+                            <select class="form-select" id="plataforma" name="plataforma" required>
+                                <option value="" disabled {% if not v[5] %}selected{% endif %}>Seleccione una plataforma</option>
+                                <option value="PC" {% if v[5] == 'PC' %}selected{% endif %}>PC</option>
+                                <option value="PS5" {% if v[5] == 'PS5' %}selected{% endif %}>PS5</option>
+                                <option value="PS4" {% if v[5] == 'PS4' %}selected{% endif %}>PS4</option>
+                                <option value="Xbox" {% if v[5] == 'Xbox' %}selected{% endif %}>Xbox</option>
+                                <option value="Xbox Series X" {% if v[5] == 'Xbox Series X' %}selected{% endif %}>Xbox Series X</option>
+                                <option value="Nintendo Switch" {% if v[5] == 'Nintendo Switch' %}selected{% endif %}>Nintendo Switch</option>
+                                <option value="Móvil" {% if v[5] == 'Móvil' %}selected{% endif %}>Móvil</option>
+                                <option value="Otros" {% if v[5] == 'Otros' %}selected{% endif %}>Otros</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="otras_plataformas" class="form-label">Otras Plataformas</label>
+                            <input type="text" class="form-control" id="otras_plataformas" name="otras_plataformas"
+                                value="{{ dv[3] }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="desarrollador" class="form-label">Desarrollador</label>
+                            <input type="text" class="form-control" id="desarrollador" name="desarrollador"
+                                value="{{ dv[2] }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha_lanzamiento" class="form-label">Fecha de Lanzamiento</label>
+                            <input type="date" class="form-control" id="fecha_lanzamiento" name="fecha_lanzamiento"
+                                value="{{ dv[4] }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="imagen" class="form-label">Imagen del Videojuego</label>
+                            <input type="file" class="form-control" id="imagen" name="imagen">
+                            <small class="form-text text-muted">Dejar en blanco si no desea cambiar la imagen
+                                actual.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="sinopsis" class="form-label">Sinopsis</label>
+                            <textarea class="form-control" id="sinopsis" name="sinopsis" rows="4"
+                                required>{{ dv[1] }}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Actualizar Videojuego</button 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="container mt-5">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Acceso Denegado</h4>
+            <p>Solo los administradores pueden actualizar videojuegos.</p>
+            <hr>
+            <p class="mb-0">Por favor, inicia sesión con una cuenta de administrador.</p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% include 'componentes/footer.html' %}
+</body>
+
+</html>
