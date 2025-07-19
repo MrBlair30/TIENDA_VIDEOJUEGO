@@ -24,7 +24,7 @@ p = 8000
 #rutas
 @app.route('/')
 def index():
-    return '<p>Hola señores estudiantes</p>'
+    return redirect(url_for('videojuegos'))
 
 @app.route('/videojuegos')
 def videojuegos():
